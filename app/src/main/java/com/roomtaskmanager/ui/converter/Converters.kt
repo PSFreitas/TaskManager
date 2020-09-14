@@ -1,16 +1,18 @@
 package com.roomtaskmanager.ui.converter
 
-import androidx.room.TypeConverters
+import androidx.room.TypeConverter
 import java.util.*
 
 class Converters {
 
-    @TypeConverters
-    fun fromCalendarToTimestamp(date: Calendar): Long = date.timeInMillis
+    @TypeConverter
+    fun fromCalendarToTimestamp(date: Calendar?) = date?.timeInMillis
 
-    @TypeConverters
-    fun fromTimestampToCalendar(timestamp: Long): Calendar = Calendar.getInstance().apply {
-        timeInMillis = timestamp
+    @TypeConverter
+    fun fromTimestampToCalendar(timestamp: Long?) = timestamp?.let {
+        Calendar.getInstance().apply {
+            timeInMillis = timestamp
+        }
     }
 
 }
