@@ -1,4 +1,4 @@
-package com.roomtaskmanager.ui
+package com.roomtaskmanager.ui.addtask
 
 import android.os.Bundle
 import android.view.MenuItem

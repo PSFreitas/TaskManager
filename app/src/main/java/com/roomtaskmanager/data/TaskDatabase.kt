@@ -1,11 +1,11 @@
-package com.roomtaskmanager.ui.data
+package com.roomtaskmanager.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.roomtaskmanager.ui.converter.Converters
+import com.roomtaskmanager.converter.Converters
 
 @Database(
     entities = [TaskEntity::class],

@@ -1,4 +1,4 @@
-package com.roomtaskmanager.ui.converter
+package com.roomtaskmanager.converter
 
 import androidx.room.TypeConverter
 import java.util.*

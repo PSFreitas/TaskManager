@@ -1,4 +1,4 @@
-package com.roomtaskmanager.ui.data
+package com.roomtaskmanager.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
