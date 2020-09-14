@@ -5,6 +5,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.roomtaskmanager.R
 import com.roomtaskmanager.data.TaskDatabase
@@ -33,11 +34,10 @@ class AddTaskActivity : AppCompatActivity() {
         DataBindingUtil.setContentView<ActivityAddTaskBinding>(
             this,
             R.layout.activity_add_task
-        )
-            .let {
-                it.viewModel = addTaskViewModel
-                it.lifecycleOwner = this
-            }
+        ).let {
+            it.viewModel = addTaskViewModel
+            it.lifecycleOwner = this
+        }
     }
 
     override fun onResume() {
@@ -45,8 +45,19 @@ class AddTaskActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setupOnTextChangedListeners()
+        setupObservers()
+
 
     }
+
+    private fun setupObservers() {
+        addTaskViewModel.createTaskResult.observe(
+            this,
+            Observer { resource ->
+            }
+        )
+    }
+
 
     private fun setupOnTextChangedListeners() {
         textInputEditText_task_name.doAfterTextChanged {
