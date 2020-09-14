@@ -1,8 +1,9 @@
-package com.roomtaskmanager
+package com.roomtaskmanager.ui
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.roomtaskmanager.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupOnClickListeners() {
         floatingActionButton_add_task.setOnClickListener {
-            val intent = Intent(this,AddTaskActivity::class.java)
+            val intent = Intent(this, AddTaskActivity::class.java)
             startActivity(intent)
         }
     }
