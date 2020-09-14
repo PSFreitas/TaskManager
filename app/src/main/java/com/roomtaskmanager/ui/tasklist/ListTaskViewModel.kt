@@ -18,10 +18,10 @@ class ListTaskViewModel(
     val getAllTaskResult: LiveData<Resource<List<TaskEntity>>> = _getAllTasksResult
 
     fun getAllTasks() {
+        _getAllTasksResult.value = Resource.loading()
+
         viewModelScope.launch {
             val result = taskRepositoryImp.getAllTasks()
-
-            _getAllTasksResult.value = Resource.loading()
 
             if (result is ResultData.Success) {
                 _getAllTasksResult.value = Resource.success(result.data)
