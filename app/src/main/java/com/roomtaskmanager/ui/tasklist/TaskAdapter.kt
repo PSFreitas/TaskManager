@@ -9,7 +9,8 @@ import com.roomtaskmanager.data.TaskEntity
 import com.roomtaskmanager.databinding.ItemTaskBinding
 
 class TaskAdapter(
-    var tasks: List<TaskEntity>
+    var tasks: List<TaskEntity> = listOf(),
+    var onDeleteTask: OnDeleteTaskListener? = null
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -25,12 +26,20 @@ class TaskAdapter(
     override fun getItemCount(): Int = tasks.size
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) =
-        holder.bind(tasks[position])
+        holder.bind(tasks[position], onDeleteTask!!)
 
     class TaskViewHolder(val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(task: TaskEntity) {
+        fun bind(
+            task: TaskEntity,
+            onDeleteTask: OnDeleteTaskListener
+        ) {
             binding.task = task
+            binding.cardViewTaskItem.setOnLongClickListener {
+                onDeleteTask.onDeleteTaskListener(task)
+                true
+            }
+
         }
 
     }

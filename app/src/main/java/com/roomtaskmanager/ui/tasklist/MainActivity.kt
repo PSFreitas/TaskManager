@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.roomtaskmanager.R
 import com.roomtaskmanager.data.TaskDatabase
+import com.roomtaskmanager.data.TaskEntity
 import com.roomtaskmanager.data.TaskRepositoryImp
 import com.roomtaskmanager.databinding.ActivityMainBinding
 import com.roomtaskmanager.ui.addtask.AddTaskActivity
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private val taskAdapter: TaskAdapter = TaskAdapter(listOf())
+    private val taskAdapter: TaskAdapter = TaskAdapter()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             it.lifecycleOwner = this
             it.viewModel = taskListViewModel
         }
-        getAllTasks()
+
     }
 
     private fun getAllTasks() {
@@ -57,8 +58,18 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         setupOnClickListeners()
+        setupAdapter()
         setupRecyclerView()
+        getAllTasks()
         setupObservables()
+    }
+
+    private fun setupAdapter() {
+        taskAdapter.onDeleteTask = object : OnDeleteTaskListener {
+            override fun onDeleteTaskListener(taskEntity: TaskEntity) {
+                Toast.makeText(this@MainActivity, "${taskEntity.title}", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setupRecyclerView() {

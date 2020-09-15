@@ -11,6 +11,7 @@
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_task_item"
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:layout_marginStart="25dp"
