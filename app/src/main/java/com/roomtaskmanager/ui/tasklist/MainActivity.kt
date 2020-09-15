@@ -66,8 +66,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupAdapter() {
         taskAdapter.onDeleteTask = object : OnDeleteTaskListener {
-            override fun onDeleteTaskListener(taskEntity: TaskEntity) {
-                Toast.makeText(this@MainActivity, "${taskEntity.title}", Toast.LENGTH_SHORT).show()
+            override fun onDeleteTaskListener(taskEntity: TaskEntity, index: Int) {
+                taskListViewModel.saveTaskToBeDeleted(taskEntity, index)
+                val dialog = DeleteTaskDialog()
+                dialog.show(supportFragmentManager, "DELETE_TASK_DIALOG")
             }
         }
     }
@@ -102,8 +104,8 @@ class MainActivity : AppCompatActivity() {
                             .show()
                     } else {
                         taskAdapter.tasks = it.data
-                        taskAdapter.notifyDataSetChanged()
                     }
+                    taskAdapter.notifyDataSetChanged()
                 }
             }
         )

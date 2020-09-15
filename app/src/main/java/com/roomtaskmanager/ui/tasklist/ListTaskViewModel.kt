@@ -17,6 +17,9 @@ class ListTaskViewModel(
     private val _getAllTasksResult: MutableLiveData<Resource<List<TaskEntity>>> = MutableLiveData()
     val getAllTaskResult: LiveData<Resource<List<TaskEntity>>> = _getAllTasksResult
 
+    private var taskToBeDeleted: TaskEntity? = null
+    private var indexOfTaskToBeDeleted: Int = -1
+
     fun getAllTasks() {
         _getAllTasksResult.value = Resource.loading()
 
@@ -30,5 +33,31 @@ class ListTaskViewModel(
             }
 
         }
+    }
+
+    fun deleteTask() {
+        viewModelScope.launch {
+            if (taskToBeDeleted != null) {
+                val result = taskRepositoryImp.deleteTask(taskToBeDeleted!!)
+
+                if (result is ResultData.Success) {
+                    val taskList = _getAllTasksResult.value?.data as MutableList
+                    taskList.removeAt(indexOfTaskToBeDeleted)
+                    _getAllTasksResult.value = Resource.success(taskList)
+                } else {
+
+                }
+            }
+        }
+    }
+
+    fun clearTaskToBeDeleted() {
+        taskToBeDeleted = null
+        indexOfTaskToBeDeleted = -1
+    }
+
+    fun saveTaskToBeDeleted(taskEntity: TaskEntity, index: Int) {
+        taskToBeDeleted = taskEntity
+        indexOfTaskToBeDeleted = index
     }
 }
