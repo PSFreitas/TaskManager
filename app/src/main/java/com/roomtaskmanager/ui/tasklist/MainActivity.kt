@@ -3,6 +3,7 @@ package com.roomtaskmanager.ui.tasklist
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -84,9 +85,14 @@ class MainActivity : AppCompatActivity() {
         taskListViewModel.getAllTaskResult.observe(
             this,
             Observer {
-                if (it.status == Status.SUCCESS) {
-                    taskAdapter.tasks = it.data!!
-                    taskAdapter.notifyDataSetChanged()
+                if (it.status == Status.SUCCESS && it.data != null) {
+                    if (it.data.isEmpty()) {
+                        Toast.makeText(this, "Não há tarefas cadastradas.", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+                        taskAdapter.tasks = it.data
+                        taskAdapter.notifyDataSetChanged()
+                    }
                 }
             }
         )
