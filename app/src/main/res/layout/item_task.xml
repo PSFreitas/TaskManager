@@ -46,6 +46,7 @@
 
         <TextView
             android:id="@+id/textView_task_date_creation"
+            formatCalendar="@{task.createdDate}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
