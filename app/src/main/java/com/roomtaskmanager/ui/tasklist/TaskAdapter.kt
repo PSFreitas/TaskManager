@@ -26,17 +26,18 @@ class TaskAdapter(
     override fun getItemCount(): Int = tasks.size
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) =
-        holder.bind(tasks[position], onDeleteTask!!)
+        holder.bind(tasks[position], onDeleteTask!!, position)
 
     class TaskViewHolder(val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
             task: TaskEntity,
-            onDeleteTask: OnDeleteTaskListener
+            onDeleteTask: OnDeleteTaskListener,
+            position: Int
         ) {
             binding.task = task
             binding.cardViewTaskItem.setOnLongClickListener {
-                onDeleteTask.onDeleteTaskListener(task)
+                onDeleteTask.onDeleteTaskListener(task, position)
                 true
             }
 
