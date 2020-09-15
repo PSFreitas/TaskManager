@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.roomtaskmanager.R
 import com.roomtaskmanager.data.TaskDatabase
 import com.roomtaskmanager.data.TaskRepositoryImp
@@ -30,6 +32,9 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    private val taskAdapter: TaskAdapter = TaskAdapter(listOf())
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataBindingUtil.setContentView<ActivityMainBinding>(
@@ -49,7 +54,17 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         setupOnClickListeners()
+        setupRecyclerView()
         setupObservables()
+    }
+
+    private fun setupRecyclerView() {
+        recyclerView_task.adapter = taskAdapter
+        recyclerView_task.layoutManager = LinearLayoutManager(
+            this,
+            RecyclerView.VERTICAL,
+            false
+        )
     }
 
     private fun setupObservables() {
@@ -57,6 +72,8 @@ class MainActivity : AppCompatActivity() {
             this,
             Observer {
                 if (it.status == Status.SUCCESS) {
+                    taskAdapter.tasks = it.data!!
+                    taskAdapter.notifyDataSetChanged()
                 }
             }
         )
