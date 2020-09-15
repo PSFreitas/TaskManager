@@ -17,7 +17,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.tasklist.MainActivity">
+        tools:context=".ui.tasklist.MainActivity"
+        android:background="@android:color/holo_blue_dark">
 
         <ProgressBar
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
@@ -37,7 +38,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_task"/>
+            tools:listitem="@layout/item_task"
+            android:padding="15dp"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton_add_task"

@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.roomtaskmanager.R
@@ -65,6 +67,17 @@ class MainActivity : AppCompatActivity() {
             RecyclerView.VERTICAL,
             false
         )
+
+        val itemDecoration = DividerItemDecoration(
+            this,
+            RecyclerView.VERTICAL
+        ).apply {
+            ContextCompat.getDrawable(this@MainActivity, R.drawable.task_decoration)
+                ?.let { setDrawable(it) }
+        }
+
+        recyclerView_task.addItemDecoration(itemDecoration)
+
     }
 
     private fun setupObservables() {
